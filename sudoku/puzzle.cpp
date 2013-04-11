@@ -8,7 +8,8 @@ using namespace std;
 Puzzle::Puzzle(const char grid[][9])
 {
   int i, j, k;
-  int x, y, z;
+  //int x, y, z;
+  int m, n;
   vector<int> temp;
   char insert;
   temp.clear();
@@ -36,7 +37,146 @@ Puzzle::Puzzle(const char grid[][9])
             temp.push_back(static_cast<int>(insert) - 48);
           }//if
         }//for(k)
-        vector<int>::iterator it;
+        if(i < 3)
+        {
+          if(j < 3)
+          {
+            for(m = 0; m < 3; m++)
+            {
+              for(n = 0; n < 3; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//if(j < 3)
+          else if(j >= 3 && j < 6)
+          {
+            for(m = 0; m < 3; m++)
+            {
+              for(n = 3; n < 6; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//else if(j >= 3 && j < 6)
+          else if(j >= 6 && j < 9)
+          {
+            for(m = 0; m < 3; m++)
+            {
+              for(n = 6; n < 9; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//else if(j >= 6 && j < 9)
+        }//if(i < 3)
+        else if(i >= 3 && i < 6)
+        {
+          if(j < 3)
+          {
+            for(m = 3; m < 6; m++)
+            {
+              for(n = 0; n < 3; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//if(j < 3)
+          else if(j >= 3 && j < 6)
+          {
+            for(m = 3; m < 6; m++)
+            {
+              for(n = 3; n < 6; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//else if(j >= 3 && j < 6)
+          else if(j >= 6 && j < 9)
+          {
+            for(m = 3; m < 6; m++)
+            {
+              for(n = 6; n < 9; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//else if(j >= 6 && j < 9)
+        }//else if(i >= 3 && i < 6)
+        else if(i >= 6 && i < 9)
+        {
+          if(j < 3)
+          {
+            for(m = 6; m < 9; m++)
+            {
+              for(n = 0; n < 3; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//if(j < 3)
+          else if(j >= 3 && j < 6)
+          {
+            for(m = 6; m < 9; m++)
+            {
+              for(n = 3; n < 6; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//else if(j >= 3 && j < 6)
+          else if(j >= 6 && j < 9)
+          {
+            for(m = 6; m < 9; m++)
+            {
+              for(n = 6; n < 9; n++)
+              {
+                if(grid[m][n] != '*')
+                {
+                  insert = grid[m][n];
+                  temp.push_back(static_cast<int>(insert) - 48);
+                }//if
+              }//for(n)
+            }//for(m)
+          }//else if(j >= 6 && j < 9)
+        }//else if(i >= 6 && i < 9)
+        set<int> setTemp;
+        copy(temp.begin(), temp.end(), inserter(setTemp, setTemp.end()));
+        temp.clear();
+        copy(setTemp.begin(), setTemp.end(), back_inserter(temp));
+        /*vector<int>::iterator it;
         for(x = 0; x < static_cast<int>(temp.size()); x++)
         {
           it = temp.begin();
@@ -46,25 +186,52 @@ Puzzle::Puzzle(const char grid[][9])
             {
               for(z = 0; z < y; z++)
                 it++;
+              cout << *it << ", ";
               temp.erase(it);
             }//if
           }//for(y)
-        }//for(x)
+        }//for(x)*/
       }//if
       else
       {
         temp.push_back(0);
-        gridCount[i][j]=temp;
+        //gridCount[i][j] = temp;
       }//else
       //for(vector<int>::iterator b = temp.begin(); b != temp.end(); b++)
         //cout << *b << " ";
-      gridCount[i][j]=temp;
+      gridCount[i][j] = temp;
+      getCount(i, j);
       temp.clear();
     }//for(j)
   }//for(i)
-  for(vector<int>::iterator b = gridCount[0][0].begin(); b != gridCount[0][0].end(); b++)
+  for(vector<int>::iterator b = gridCount[0][1].begin();
+    b != gridCount[0][1].end(); b++)
     cout<< *b << ' ';
+  cout << endl;
 }//Puzzle()
+
+void Puzzle::getCount(int i, int j)
+{
+  int m, n;
+  int found;
+  vector<int> temp;
+  if(gridCount[i][j][0] == 0)
+    return;
+  for(m = 1; m < 10; m++)
+  {
+    found = 0;
+    for(n = 0; n < static_cast<int>(gridCount[i][j].size()); n++)
+      if(m == gridCount[i][j].at(n))
+      {
+        found = 1;
+        break;
+      }//if
+    if(found == 0)
+      temp.push_back(m);
+  }//for(m)
+  gridCount[i][j].clear();
+  gridCount[i][j] = temp;
+}//getCount()
 
 void Puzzle::solve(char grid[][9])
 {
