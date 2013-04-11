@@ -204,10 +204,10 @@ Puzzle::Puzzle(const char grid[][9])
       temp.clear();
     }//for(j)
   }//for(i)
-  for(vector<int>::iterator b = gridCount[0][1].begin();
+  /*for(vector<int>::iterator b = gridCount[0][1].begin();
     b != gridCount[0][1].end(); b++)
     cout<< *b << ' ';
-  cout << endl;
+  cout << gridCount[0][1].size()<< endl;*/
 }//Puzzle()
 
 void Puzzle::getCount(int i, int j)
@@ -235,5 +235,20 @@ void Puzzle::getCount(int i, int j)
 
 void Puzzle::solve(char grid[][9])
 {
-  
+  int i, j;
+  char convert;
+  for(i = 0; i < 9; i++)
+  {
+    for(j = 0; j < 9; j++)
+    {
+      if(gridCount[i][j][0] == 0)
+        continue;
+      if(static_cast<int>(gridCount[i][j].size()) == 1)
+      {
+        convert = static_cast<char>(static_cast<int>('0') + gridCount[i][j][0]);
+        //cout << "char: " << test << ", ";
+        grid[i][j] = convert;
+      }//if
+    }//for(j)
+  }//for(i)
 }//solve()

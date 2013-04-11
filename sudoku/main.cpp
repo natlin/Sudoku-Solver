@@ -39,6 +39,6 @@ int main(int argc, char **argv)
   readGrid(argv[1], grid);
   Puzzle puzzle(grid);
   puzzle.solve(grid);
-  //writeGrid(grid);
+  writeGrid(grid);
   return 0;
 } // main()
