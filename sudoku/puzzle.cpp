@@ -248,6 +248,7 @@ void Puzzle::solve(char grid[][9])
         convert = static_cast<char>(static_cast<int>('0') + gridCount[i][j][0]);
         //cout << "char: " << test << ", ";
         grid[i][j] = convert;
+        gridCount[i][j][0] = 0;
       }//if
     }//for(j)
   }//for(i)
