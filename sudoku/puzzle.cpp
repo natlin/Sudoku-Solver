@@ -256,17 +256,21 @@ void Puzzle::solve(char grid[][9])
   {
     for(j = 0; j < 9; j++)
     {
-        controlGrid[i][j] = gridCount[i][j];
+        //controlGrid[i][j] = gridCount[i][j];
+        copy(gridCount[i][j].begin(), gridCount[i][j].end(),
+          back_inserter(controlGrid[i][j]));
     }//for(j)
   }//for(i)
-  //while
-  recursive(grid, 0, 0);
+    pair<int, int> p1(0, 0);
+    count.push_back(p1);
+    //recursive(grid, 0, 0);
+    recSolve(grid, 0, 0);
 }//solve()
 
-void Puzzle::recursive(char grid[][9], int row, int col)
+/*void Puzzle::recursive(char grid[][9], int row, int col)
 {
   //int found = 0;
-  //int i, j;
+  int i, j;
   char convert;
   if(col < 0)
   {
@@ -283,6 +287,39 @@ void Puzzle::recursive(char grid[][9], int row, int col)
     return;
   }//if
 
+  if(gridCount[row][col][0] == 0)
+  {
+    recursive(grid, row, col + 1);
+    return;
+  }//if
+
+  //if(grid[row][col] == '*')
+  //{
+    if(gridCount[row][col][0] == -1)
+    {
+      //copy(controlGrid[row][col].begin(), controlGrid[row][col].end(),
+        //back_inserter(gridCount[row][col]));
+      gridCount[row][col] = controlGrid[row][col];
+      i = count[count.size() - 2].first;
+      j = count[count.size() - 2].second;
+      count.pop_back();
+      //grid[i][j] = '*';
+      recursive(grid, i, j);
+    }//if
+    else
+    {
+    convert = static_cast<char>(static_cast<int>('0')
+      + gridCount[row][col].at(gridCount[row][col].size() - 1));
+    grid[row][col] = convert;
+    gridCount[row][col].pop_back();
+    cout << grid[row][col] << ", ";
+    pair<int, int> p1(row, col);
+    if(p1 != count[count.size() - 1])
+      count.push_back(p1);
+    if(gridCount[row][col].empty())
+      gridCount[row][col].push_back(-1);
+    }//else
+  //}//if
   if(rowCheck(grid, row, col) || colCheck(grid, row, col)
     || boxCheck(grid, row, col))
   {
@@ -292,7 +329,9 @@ void Puzzle::recursive(char grid[][9], int row, int col)
     //}//if
     //else
     //{
-      grid[row][col] = '*';
+      //grid[row][col] = '*';
+      recursive(grid, row, col);
+      return;
     //}//else
   }//if
   //if(gridCount[row][col][0] == 0)
@@ -301,24 +340,7 @@ void Puzzle::recursive(char grid[][9], int row, int col)
     //recursive(grid, row, col);
   //}//if
   col++;
-  if(grid[row][col] == '*')
-  {
-    if(gridCount[row][col][0] == -1)
-    {
-      gridCount[row][col] = controlGrid[row][col];
-      recursive(grid, 0, 0);
-    }//if
-    else
-    {
-    convert = static_cast<char>(static_cast<int>('0')
-      + gridCount[row][col].at(gridCount[row][col].size() - 1));
-    grid[row][col] = convert;
-    gridCount[row][col].pop_back();
-    if(gridCount[row][col].empty())
-      gridCount[row][col].push_back(-1);
-    }//else
-  }//if
-  recursive(grid, row, col);
+  recursive(grid, row, col);*/
   /*for(row = 0; row < 9; row++)
   {
     for(col = 0; col < 9; col++)
@@ -332,7 +354,83 @@ void Puzzle::recursive(char grid[][9], int row, int col)
     if(found)
       break;
   }//for(row)*/
-}//recursive
+//}//recursive
+
+bool Puzzle::recSolve(char grid[][9], int row, int col)
+{
+  //int i, j;
+  char convert;
+  if(col < 0)
+  {
+    row--;
+    col = 0;
+  }//if
+  if(col > 8)
+  {
+    row++;
+    col = 0;
+  }//if
+  if(row < 0 || row > 8)
+  {
+    return true;
+  }//if
+  while(grid[row][col] != '*')
+  {
+    col++;
+    if(col > 8)
+    {
+      row++;
+      col = 0;
+    }//if
+    //recSolve(grid, row, col + 1);
+  }//if
+  while(gridCount[row][col][0] == 0)
+  {
+    col++;
+    if(col > 8)
+    {
+      row++;
+      col = 0;
+    }//if
+    //recSolve(grid, row, col + 1);
+    //return true;
+  }//if
+  //if(gridCount[row][col][0] == -1)
+  //{
+    //copy(controlGrid[row][col].begin(), controlGrid[row][col].end(),
+      //back_inserter(gridCount[row][col]));
+    //gridCount[row][col] = controlGrid[row][col];
+    //i = count[count.size() - 2].first;
+    //j = count[count.size() - 2].second;
+    //count.pop_back();
+    //grid[i][j] = '*';
+    //recSolve(grid, i, j);
+  //}//if
+  //else
+  //if(grid[row][col] == '*')
+  //{
+    for(int k = 0; k < static_cast<int>(gridCount[row][col].size()); k++)
+    {
+      convert = static_cast<char>(static_cast<int>('0')
+        + gridCount[row][col].at(k));
+      grid[row][col] = convert;
+      //gridCount[row][col].pop_back();
+      //pair<int, int> p1(row, col);
+      //if(p1 != count[count.size() - 1])
+        //count.push_back(p1);
+      //if(gridCount[row][col].empty())
+        //gridCount[row][col].push_back(-1);
+      //}//if
+      if(!rowCheck(grid, row, col) && !colCheck(grid, row, col)
+        && !boxCheck(grid, row, col) && recSolve(grid, row, col + 1))
+      {
+        return true;
+      }//if
+    }//for(k)
+  //}//if
+  grid[row][col] = '*';
+  return false;
+}//recSolve()
 
 bool Puzzle::rowCheck(char grid[][9], int row, int col)
 {
@@ -359,10 +457,12 @@ bool Puzzle::rowCheck(char grid[][9], int row, int col)
 
   for(k = 0; k < 9; k++)
   {
+    if(grid[i][k] != '*'){
     if(k == j)
       continue;
     if(grid[i][k] == grid[i][j])
       return true;
+    }//if
   }//for(k)
   return false;
 }//row()
@@ -392,10 +492,13 @@ bool Puzzle::colCheck(char grid[][9], int row, int col)
 
   for(k = 0; k < 9; k++)
   {
+    if(grid[k][j] != '*')
+    {
     if(k == i)
       continue;
     if(grid[k][j] == grid[i][j])
       return true;
+    }//if
   }//for(k)
   return false;
 }//col()
