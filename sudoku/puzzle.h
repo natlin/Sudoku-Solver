@@ -12,9 +12,15 @@ class Puzzle
   Puzzle(const char grid[][9]);
   void getCount(int i, int j);
   void solve(char grid[][9]);
+  void recursive(char grid[][9], int row, int col);
+  bool rowCheck(char grid[][9], int row, int col);
+  bool colCheck(char grid[][9], int row, int col);
+  bool boxCheck(char grid[][9], int row, int col);
  private:
-  vector<int> testNum;
+  vector<int> controlGrid[9][9];
   vector<int> gridCount[9][9];
+  //int row;
+  //int col;
 }; // Puzzle class
 
 #endif
