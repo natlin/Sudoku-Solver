@@ -374,7 +374,7 @@ bool Puzzle::recSolve(char grid[][9], int row, int col)
   {
     return true;
   }//if
-  while(grid[row][col] != '*')
+  while(grid[row][col] != '*' && (row >= 0 || row <=8))
   {
     col++;
     if(col > 8)
@@ -383,6 +383,10 @@ bool Puzzle::recSolve(char grid[][9], int row, int col)
       col = 0;
     }//if
     //recSolve(grid, row, col + 1);
+  }//while
+  if(row < 0 || row > 8)
+  {
+    return true;
   }//if
   while(gridCount[row][col][0] == 0)
   {
@@ -394,6 +398,10 @@ bool Puzzle::recSolve(char grid[][9], int row, int col)
     }//if
     //recSolve(grid, row, col + 1);
     //return true;
+  }//while
+  if(row < 0 || row > 8)
+  {
+    return true;
   }//if
   //if(gridCount[row][col][0] == -1)
   //{
