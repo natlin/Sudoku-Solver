@@ -33,31 +33,33 @@ int main(void)
 
   cout << "Filename >> ";
   cin >> filename;
-  cout << endl;
 
-
-  cout << "      ADT Menu\n";
-  cout << "0. Quit\n";
-  cout << "1. LinkedList\n";
-  cout << "2. CursorList\n";
-  cout << "3. StackAr\n";
-  cout << "4. StackLi\n";
-  cout << "5. QueueAr\n";
-  cout << "6. SkipList\n";
-  cout << "Your choice >> ";
 
   do
   {
+    cout << endl;
+    cout << "      ADT Menu\n";
+    cout << "0. Quit\n";
+    cout << "1. LinkedList\n";
+    cout << "2. CursorList\n";
+    cout << "3. StackAr\n";
+    cout << "4. StackLi\n";
+    cout << "5. QueueAr\n";
+    cout << "6. SkipList\n";
+    cout << "Your choice >> ";
+
     choice = getChoice();
     ct.reset();
+    if(choice == 0)
+      return 0;
     switch (choice)
     {
       case 1: RunList(filename); break;
-      //case 2: RunCursorList(filename); break;
+      case 2: RunCursorList(filename); break;
       case 3: RunStackAr(filename); break;
       case 4: RunStackLi(filename); break;
       case 5: RunQueueAr(filename); break;
-      //case 6: RunSkipList(filename); break;
+      case 6: RunSkipList(filename); break;
     } //switch
 
     cout << "CPU time: " << ct.cur_CPUTime() << endl;
@@ -107,12 +109,13 @@ void RunList(string filename)
 }//end RunList
 
 
-/*void RunCursorList(string filename)
+void RunCursorList(string filename)
 {
   ifstream input;
   input.open(filename.c_str());
   string temp, number, number2; //temp string to discard first line
   int number3;
+  getline(input,temp);
   CursorList<int> listObject;
   CursorListItr<int> it;
   while(getline(input, number, ' '))
@@ -134,14 +137,15 @@ void RunList(string filename)
       //delete from ADT
   }
   input.close();
-}//end RunCursorList*/
+}//end RunCursorList
 void RunStackAr(string filename)
 {
   ifstream input;
   input.open(filename.c_str());
   string temp, number, number2; //temp string to discard first line
   int number3;
-  StackAr<int> stackObject;
+  getline(input,temp);
+  StackAr<int> stackObject(250000);
 
   while(getline(input, number, ' '))
   {
@@ -170,13 +174,15 @@ void RunStackLi(string filename)
   input.open(filename.c_str());
   string temp, number, number2; //temp string to discard first line
   int number3;
+  getline(input,temp);
   StackLi<int> stackObject;
   while(getline(input, number, ' '))
   {
     if(number[0] == 'i')
     {
-      number2 = number.substr(1,number.length());
-      istringstream(number2) >> number3;
+      //number2 = number.substr(1,number.length());
+      //istringstream(number2) >> number3;
+      istringstream(number.substr(1,number.length())) >> number3;
       stackObject.push(number3);
       //it.current = it.current->next;
       //insert ADT
@@ -185,7 +191,6 @@ void RunStackLi(string filename)
     {
       number2 = number.substr(1,number.length());
       stackObject.pop();
-
     }
       //delete from ADT
   }
@@ -198,6 +203,7 @@ void RunQueueAr(string filename)
   input.open(filename.c_str());
   string temp, number, number2; //temp string to discard first line
   int number3;
+  getline(input,temp);
   Queue<int> queueObject;
 
   while(getline(input, number, ' '))
@@ -221,12 +227,13 @@ void RunQueueAr(string filename)
   input.close();
 }//end RunQueueAr
 
-/*void RunSkipList(string filename)
+void RunSkipList(string filename)
 {
   ifstream input;
   input.open(filename.c_str());
   string temp, number, number2; //temp string to discard first line
   int number3;
+  getline(input,temp);
   SkipList<int> skipObject(250000);
   while(getline(input, number, ' '))
   {
@@ -248,4 +255,3 @@ void RunQueueAr(string filename)
   }
   input.close();
 }//end RunSkipList
-*/
