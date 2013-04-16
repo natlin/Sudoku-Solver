@@ -53,11 +53,11 @@ int main(void)
     switch (choice)
     {
       case 1: RunList(filename); break;
-      case 2: RunCursorList(filename); break;
+      //case 2: RunCursorList(filename); break;
       case 3: RunStackAr(filename); break;
       case 4: RunStackLi(filename); break;
       case 5: RunQueueAr(filename); break;
-      case 6: RunSkipList(filename); break;
+      //case 6: RunSkipList(filename); break;
     } //switch
 
     cout << "CPU time: " << ct.cur_CPUTime() << endl;
@@ -107,37 +107,145 @@ void RunList(string filename)
 }//end RunList
 
 
-void RunCursorList(string filename)
+/*void RunCursorList(string filename)
 {
-  ifstream my_file;
-  my_file.open(filename);
+  ifstream input;
+  input.open(filename.c_str());
+  string temp, number, number2; //temp string to discard first line
+  int number3;
+  CursorList<int> listObject;
+  CursorListItr<int> it;
+  while(getline(input, number, ' '))
+  {
+    if(number[0] == 'i')
+    {
+      number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
+      listObject.insert(number3, it);
+      //it.current = it.current->next;
+      //insert ADT
+    }
+    else
+    {
+      number2 = number.substr(1,number.length());
+      listObject.remove(number3);
+
+    }
+      //delete from ADT
+  }
   input.close();
-}//end RunCursorList
+}//end RunCursorList*/
 void RunStackAr(string filename)
 {
-  ifstream my_file;
-  my_file.open(filename);
+  ifstream input;
+  input.open(filename.c_str());
+  string temp, number, number2; //temp string to discard first line
+  int number3;
+  StackAr<int> stackObject;
+
+  while(getline(input, number, ' '))
+  {
+    if(number[0] == 'i')
+    {
+      number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
+      stackObject.push(number3);
+      //it.current = it.current->next;
+      //insert ADT
+    }
+    else
+    {
+      number2 = number.substr(1,number.length());
+      stackObject.pop();
+
+    }
+      //delete from ADT
+  }
   input.close();
 }//end RunStackAr
 
 void RunStackLi(string filename)
 {
-  ifstream my_file;
-  my_file.open(filename);
+  ifstream input;
+  input.open(filename.c_str());
+  string temp, number, number2; //temp string to discard first line
+  int number3;
+  StackLi<int> stackObject;
+  while(getline(input, number, ' '))
+  {
+    if(number[0] == 'i')
+    {
+      number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
+      stackObject.push(number3);
+      //it.current = it.current->next;
+      //insert ADT
+    }
+    else
+    {
+      number2 = number.substr(1,number.length());
+      stackObject.pop();
+
+    }
+      //delete from ADT
+  }
   input.close();
 }//end RunStackLi
 
 void RunQueueAr(string filename)
 {
-  ifstream my_file;
-  my_file.open(filename);
+  ifstream input;
+  input.open(filename.c_str());
+  string temp, number, number2; //temp string to discard first line
+  int number3;
+  Queue<int> queueObject;
+
+  while(getline(input, number, ' '))
+  {
+    if(number[0] == 'i')
+    {
+      number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
+      queueObject.enqueue(number3);
+      //it.current = it.current->next;
+      //insert ADT
+    }
+    else
+    {
+      number2 = number.substr(1,number.length());
+      queueObject.dequeue();
+
+    }
+      //delete from ADT
+  }
   input.close();
 }//end RunQueueAr
 
-void RunSkipList(string filename)
+/*void RunSkipList(string filename)
 {
-  ifstream my_file;
-  my_file.open(filename);
+  ifstream input;
+  input.open(filename.c_str());
+  string temp, number, number2; //temp string to discard first line
+  int number3;
+  SkipList<int> skipObject(250000);
+  while(getline(input, number, ' '))
+  {
+    if(number[0] == 'i')
+    {
+      number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
+      skipObject.insert(number3);
+      //it.current = it.current->next;
+      //insert ADT
+    }
+    else
+    {
+      number2 = number.substr(1,number.length());
+      skipObject.deleteNode(number3);
+
+    }
+      //delete from ADT
+  }
   input.close();
 }//end RunSkipList
-
+*/
