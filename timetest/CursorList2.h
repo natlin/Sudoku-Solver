@@ -108,5 +108,5 @@
               : current( theNode ), cursorSpace(list.cursorSpace) { }
         };
 
-        #include "CursorList2.cpp"
+        //#include "CursorList2.cpp"
         #endif

@@ -1,10 +1,10 @@
 CC=g++
 CFLAGS=-Wall -ansi
 
-TARGET=main
+TARGET=solver.out
 SOURCE=main.cpp puzzle.cpp
 
-main:	main.cpp puzzle.cpp puzzle.h
+solver.out:	main.cpp puzzle.cpp puzzle.h
 	$(CC) $(CFLAGS) -o $(TARGET) -g $(SOURCE)
 
 clean:	

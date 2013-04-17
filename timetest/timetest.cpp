@@ -12,7 +12,7 @@
 #include "SkipList.h"
 #include "StackAr.h"
 #include "StackLi.h"
-//#include "vector.h"
+#include "vector.h"
 
 void RunList(string filename);
 void RunCursorList(string filename);
@@ -20,6 +20,7 @@ void RunStackAr(string filename);
 void RunStackLi(string filename);
 void RunQueueAr(string filename);
 void RunSkipList(string filename);
+vector<CursorNode <int> > cursorSpace(250000);
 
 using namespace std;
 
@@ -94,14 +95,17 @@ void RunList(string filename)
       number2 = number.substr(1,number.length());
       istringstream(number2) >> number3;
       listObject.insert(number3, it);
+      it.advance();
       //it.current = it.current->next;
       //insert ADT
     }
     else
     {
+      listObject.isEmpty();
       number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
       listObject.remove(number3);
-
+      cout << "delete " << endl;
     }
       //delete from ADT
   }
@@ -116,8 +120,8 @@ void RunCursorList(string filename)
   string temp, number, number2; //temp string to discard first line
   int number3;
   getline(input,temp);
-  CursorList<int> listObject;
-  CursorListItr<int> it;
+  CursorList<int> listObject(cursorSpace);
+  CursorListItr<int> it(listObject);
   while(getline(input, number, ' '))
   {
     if(number[0] == 'i')
@@ -125,12 +129,13 @@ void RunCursorList(string filename)
       number2 = number.substr(1,number.length());
       istringstream(number2) >> number3;
       listObject.insert(number3, it);
-      //it.current = it.current->next;
+      //it.advance();
       //insert ADT
     }
     else
     {
       number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
       listObject.remove(number3);
 
     }
@@ -159,7 +164,6 @@ void RunStackAr(string filename)
     }
     else
     {
-      number2 = number.substr(1,number.length());
       stackObject.pop();
 
     }
@@ -180,16 +184,14 @@ void RunStackLi(string filename)
   {
     if(number[0] == 'i')
     {
-      //number2 = number.substr(1,number.length());
-      //istringstream(number2) >> number3;
-      istringstream(number.substr(1,number.length())) >> number3;
+      number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
       stackObject.push(number3);
       //it.current = it.current->next;
       //insert ADT
     }
     else
     {
-      number2 = number.substr(1,number.length());
       stackObject.pop();
     }
       //delete from ADT
@@ -204,7 +206,7 @@ void RunQueueAr(string filename)
   string temp, number, number2; //temp string to discard first line
   int number3;
   getline(input,temp);
-  Queue<int> queueObject;
+  Queue<int> queueObject(250000);
 
   while(getline(input, number, ' '))
   {
@@ -218,9 +220,7 @@ void RunQueueAr(string filename)
     }
     else
     {
-      number2 = number.substr(1,number.length());
       queueObject.dequeue();
-
     }
       //delete from ADT
   }
@@ -234,7 +234,7 @@ void RunSkipList(string filename)
   string temp, number, number2; //temp string to discard first line
   int number3;
   getline(input,temp);
-  SkipList<int> skipObject(250000);
+  SkipList<int> skipObject(250000, 250000);
   while(getline(input, number, ' '))
   {
     if(number[0] == 'i')
@@ -248,8 +248,8 @@ void RunSkipList(string filename)
     else
     {
       number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
       skipObject.deleteNode(number3);
-
     }
       //delete from ADT
   }

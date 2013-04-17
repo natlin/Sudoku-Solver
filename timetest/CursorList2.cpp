@@ -1,4 +1,9 @@
-       // include "CursorList2.h"
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <iostream>
+#include "CursorList2.h"
 
         /**
          * Routine to initialize the cursorSpace.
@@ -193,5 +198,30 @@
             }
             return *this;
         }
+using namespace std;
 
+int main()
+{
+  ifstream input;
+  input.open("File4.dat");
+  string temp, number, number2;
+  int number3;
+  getline(input,temp);
+  vector<CursorNode <int> > cursorSpace(250000);
+  CursorList<int> listObject(cursorSpace);
+  CursorListItr<int> it(listObject);
+  while(getline(input, number, ' '))
+  {
+    if(number[0] == '1')
+    {
+      number2 = number.substr(1,number.length());
+      istringstream(number2) >> number3;
+
+      listObject.remove(number3);
+   }//else
+  }//while
+  return 0;
+}//main()
+
+~
 
