@@ -86,7 +86,7 @@ void RunList(string filename)
   int number3;
   getline(input,temp);
   List<int> listObject;
-  ListItr<int> it = listObject.first();
+  ListItr<int> it = listObject.zeroth();
 
   while(getline(input, number, ' '))
   {
@@ -101,11 +101,11 @@ void RunList(string filename)
     }
     else
     {
-      listObject.isEmpty();
+      //cout << (int) listObject.isEmpty() << endl;
       number2 = number.substr(1,number.length());
       istringstream(number2) >> number3;
       listObject.remove(number3);
-      cout << "delete " << endl;
+      //cout << "delete " << endl;
     }
       //delete from ADT
   }
@@ -122,6 +122,7 @@ void RunCursorList(string filename)
   getline(input,temp);
   CursorList<int> listObject(cursorSpace);
   CursorListItr<int> it(listObject);
+  it = listObject.zeroth();
   while(getline(input, number, ' '))
   {
     if(number[0] == 'i')
