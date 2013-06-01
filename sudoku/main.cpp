@@ -1,5 +1,6 @@
 // Author: Sean Davis
 
+#include "CPUTimer.h"
 #include "puzzle.h"
 #include <iostream>
 #include <fstream>
@@ -35,10 +36,13 @@ void writeGrid(const char grid[][9])
 
 int main(int argc, char **argv)
 {
+  CPUTimer ct;
+  ct.reset();
   char grid[9][9];
   readGrid(argv[1], grid);
   Puzzle puzzle(grid);
   puzzle.solve(grid);
   writeGrid(grid);
+  cout << "CPU time: " << ct.cur_CPUTime() << endl;
   return 0;
 } // main()
